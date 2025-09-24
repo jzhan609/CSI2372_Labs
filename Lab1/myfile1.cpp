@@ -1,6 +1,4 @@
-# include <iostream>
-# include <string>
-using namespace std;
+# include "myfile1.h"
 
 string convertInt(int value, bool toOctal) {
     string result;

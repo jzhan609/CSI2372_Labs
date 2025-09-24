@@ -1,8 +1,4 @@
-/* Header file: myfile2.h */
-#include <iostream>
-#include <iomanip>
-#include <process.h>
-using namespace std;
+#include "myfile2.h"
 
 const double Pi = 3.14159;
 char menu(void);
