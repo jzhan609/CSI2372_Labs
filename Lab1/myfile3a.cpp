@@ -1,14 +1,16 @@
-/*myfile3a.cpp : Ex3a a1 CSI2372A*/
-
+/*
+ * File: myfile3a.cpp
+ * Author: Jacob Zhang
+ * Description: This program reads an array of integers from the user, and sorts it in descending order using selection sort.
+ * Date: 2025/09/24
+ */
 
 #include <iostream>
-# include <vector>
+#include <vector>
 
 using namespace std;
 
-/* Index search selector function that returns the index of the max value of an array
-**
-*/
+// Finds the index of the maximum value in the array up to the specified limit.
 int searchIndex(vector<int> T, int imax) {
 	if (T.size() < imax - 1) {
 		cout << "Erreur ! Tableau trop petit ! " << endl;
@@ -20,17 +22,13 @@ int searchIndex(vector<int> T, int imax) {
 	return res;
 }
 
-/* Exchange function that exchanges the values ​​of the arguments
-**
-*/
+// Exchanges the values of two integers.
 void exchange(int& a, int& b) {
 	int c;
 	c = a; a = b; b = c;
 }
 
-/* Sort function with Pass by value
-**
-*/
+// Sorts the array in descending order using selection sort. 
 vector<int> sort(vector<int> T) {
 	int n = T.size();
 	for (int i = n - 1; i > 0; i--) {
@@ -42,10 +40,7 @@ vector<int> sort(vector<int> T) {
 	return T;
 }
 
-
-/* arrayEntry function to enter values ​​from your table
-**
-*/
+// Reads an array of integers from the user.
 vector<int> arrayEntry() {
 	int size;
 	cout << " Enter the size of your array: ";
@@ -60,25 +55,24 @@ vector<int> arrayEntry() {
 	return res;
 }
 
-/* main
-**
-*/
+// Main function to execute the program.
 int main() {
 	vector<int> a;
 	vector<int> arraySorted;
 	a = arrayEntry();
+
+	// Display original array
 	cout << "My array values are : ";
 	for (int i = 0; i < a.size(); i++) {
 		cout << "\n" << a[i];
 	}
 	cout << "\n";
 
+	// Sort and display sorted array
 	arraySorted = sort(a);
 	cout << "\nMy sorted array values are : ";
 	for (int i = 0; i < arraySorted.size(); i++) {
 		cout << "\n" << arraySorted[i];
-
 	}
 	cout << "\n";
 }
-
