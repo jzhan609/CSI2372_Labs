@@ -26,7 +26,7 @@ int main()
 	{
 		choice=menu();
 	
-		switch(choice)
+		switch(choice) 
 		{
 			case '1':	display(chain,nb_ch);  
 				break;
@@ -73,7 +73,7 @@ void display(char* tab[], int const& nbre)
 	cout << endl;
 	for(int i = 0; i < nbre; i++)
 	{
-		cout << "The string " << i << " is : " << tab[i] << endl;
+		cout << "The string " << i << " is : " << tab[i] << endl; //display each string
 	}
 }
 
@@ -96,13 +96,13 @@ void replace(char* tab[], int const& nbre, int const& size)
 	cin >> numero;
 	cin.ignore(INT_MAX,'\n');  // Clear the input buffer after reading the number
 
-	// Check if the number is valid
+	//check if the number is valid
 	if(numero >= 0 && numero < nbre)
 	{
 		cout << "Enter the new string: ";
 		cin.getline(newString, size);
 		
-		// Copy the new string to the array
+		//copy the new string to the array
 		strcpy(tab[numero], newString);
 	}
 	else
@@ -125,11 +125,11 @@ void sort(char* tab[], int const& nbre)
 		temp = tab[i];
 		j = i - 1;
 		
-		// Compare strings and shift them if needed
+		//compare strings and shift them if needed
 		while(j >= 0 && strcmp(tab[j], temp) > 0)
 		{
-			tab[j + 1] = tab[j];
-			j = j - 1;
+			tab[j + 1] = tab[j]; //shift string to the right
+			j = j - 1; //move to the previous string
 		}
 		tab[j + 1] = temp;
 	}
