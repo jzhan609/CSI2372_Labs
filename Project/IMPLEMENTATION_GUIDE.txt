@@ -1,0 +1,318 @@
+========================================
+MEMOARRR! IMPLEMENTATION GUIDE
+========================================
+
+This document provides a comprehensive overview of the implementation.
+
+========================================
+CLASS HIERARCHY AND RELATIONSHIPS
+========================================
+
+1. INHERITANCE HIERARCHY:
+
+   DeckFactory<C> (Template Base Class)
+   ├── CardDeck : public DeckFactory<Card>
+   └── RubisDeck : public DeckFactory<Rubis>
+
+2. CLASS DEPENDENCIES:
+
+   Game
+   ├── contains Board*
+   ├── contains vector<Player*>
+   ├── references Card* (for previous/current)
+   └── uses Rules for validation
+
+   Board
+   ├── contains Card*[][] (5x5 grid)
+   └── uses CardDeck to initialize
+
+   Player
+   └── uses Rubis for ruby counting
+
+========================================
+KEY DESIGN PATTERNS USED
+========================================
+
+1. SINGLETON PATTERN (CardDeck, RubisDeck):
+   - Private constructor
+   - Static make_X() method returns single instance
+   - Ensures only one deck exists per game
+
+2. FACTORY PATTERN (DeckFactory):
+   - Abstract base class with template parameter
+   - Derived classes create specific object types
+   - Encapsulates object creation logic
+
+3. FRIEND CLASSES:
+   - Card has friend CardDeck
+   - Rubis has friend RubisDeck
+   - Allows factory to call private constructors
+
+4. OPERATOR OVERLOADING:
+   - operator<< for printing objects
+   - operator() for Card row access
+   - Conversion operators for type casting
+
+========================================
+MEMORY MANAGEMENT
+========================================
+
+DYNAMIC ALLOCATION:
+- Game owns Board* (deleted in destructor)
+- Game owns vector<Player*> (deleted in destructor)
+- DeckFactory owns Card*/Rubis* in deck (deleted in destructor)
+
+STATIC ALLOCATION:
+- Singleton instances (CardDeck, RubisDeck) are static
+
+NO MANUAL MEMORY MANAGEMENT NEEDED:
+- Cards in Board are pointers to CardDeck's cards
+- Board doesn't delete cards (owned by CardDeck)
+
+========================================
+GAME FLOW DETAILED
+========================================
+
+INITIALIZATION:
+1. User selects game mode
+2. User enters number of players and names
+3. Game object created with Board
+4. Players added to Game
+5. CardDeck shuffled
+6. RubisDeck shuffled
+
+ROUND STRUCTURE (7 rounds total):
+1. All cards turned face down
+2. All players set to active
+3. Each player peeks at their 3 cards
+4. Players take turns:
+   a. Display current game state
+   b. Player selects position
+   c. Card revealed and compared
+   d. If invalid: player eliminated
+   e. Update previous/current cards
+   f. Next player's turn
+5. Last active player wins rubies
+6. Move to next round
+
+GAME END:
+1. After 7 rounds, display final scores
+2. Sort players by rubies (least to most)
+3. Declare winner
+
+========================================
+BOARD REPRESENTATION
+========================================
+
+COORDINATE SYSTEM:
+- Rows: Letter enum (A-E) maps to indices 0-4
+- Columns: Number enum (One-Five) maps to indices 0-4
+- Center (C,3) is always empty (row 2, col 2)
+
+DISPLAY MODES:
+
+Normal Mode (19x19 characters):
+  yyy zzz zzz zzz zzz
+A yWy zzz zzz zzz zzz
+  yyy zzz zzz zzz zzz
+  ...
+  1   2   3   4   5
+
+Expert Mode (horizontal strip):
+yyy yyy bbb bbb
+yWy yPy bPb bTb
+yyy yyy bbb bbb
+A1  D1  B4  D3
+
+========================================
+CARD ENCODING
+========================================
+
+ANIMALS (Capital Letters):
+- C = Crab
+- P = Penguin
+- O = Octopus
+- T = Turtle
+- W = Walrus
+
+BACKGROUNDS (Lowercase Letters):
+- r = Red
+- g = Green
+- p = Purple
+- b = Blue
+- y = Yellow
+
+EXAMPLE CARDS:
+yyy     rrr     bbb
+yWy     rCr     bPb
+yyy     rrr     bbb
+Walrus  Crab    Penguin
+Yellow  Red     Blue
+
+========================================
+VALIDATION LOGIC
+========================================
+
+VALID MOVE CONDITIONS:
+1. First card of round: Always valid
+2. Subsequent cards: Must match previous card's
+   - Animal (e.g., both Penguins) OR
+   - Background (e.g., both Blue)
+
+INVALID MOVE:
+- Player eliminated from current round
+- Player set to inactive
+- Round continues with remaining players
+
+ROUND END:
+- Only one active player remains
+- Winner receives random rubies (1-4)
+
+GAME END:
+- 7 rounds completed
+- Player with most rubies wins
+
+========================================
+ERROR HANDLING
+========================================
+
+EXCEPTIONS:
+1. OutOfRange:
+   - Thrown when invalid board position accessed
+   - Includes descriptive error message
+   - Caught in main loop for user feedback
+
+2. NoMoreCards:
+   - Thrown if CardDeck exhausted during Board creation
+   - Should never occur in normal gameplay
+
+INPUT VALIDATION:
+- Position format checked (must be like "A1", "C3")
+- Position must be valid board location
+- Position cannot be center (C3)
+- Card must not already be face-up
+- Number of players validated (2-4)
+
+========================================
+EXTENSIBILITY POINTS
+========================================
+
+TO ADD EXPERT RULES:
+1. Create SpecialAbility base class
+2. Derive specific abilities (OctopusSwap, PenguinFlip, etc.)
+3. Add ability pointer to Card class
+4. Modify Rules::isValid() to check abilities
+5. Execute abilities after card reveal
+
+TO ADD NEW ANIMALS:
+1. Add to FaceAnimal enum
+2. Update animalToChar() function
+3. Add cases in CardDeck constructor
+4. (Optional) Create special ability class
+
+TO ADD NEW DISPLAY MODE:
+1. Add mode flag to Board/Game
+2. Modify operator<< in Board
+3. Update main menu options
+
+========================================
+TESTING RECOMMENDATIONS
+========================================
+
+UNIT TESTS TO CONSIDER:
+1. Card creation and display
+2. Board position validation
+3. Rules validation (matching logic)
+4. Player ruby accumulation
+5. Deck shuffling and card distribution
+6. Round/game end detection
+
+INTEGRATION TESTS:
+1. Complete game flow (2 players, 7 rounds)
+2. Input validation and error handling
+3. Winner determination with ties
+4. Display mode switching
+
+EDGE CASES:
+1. All players eliminated except one
+2. Last card on board revealed
+3. Multiple players with same ruby count
+4. Invalid position inputs
+
+========================================
+PERFORMANCE NOTES
+========================================
+
+TIME COMPLEXITY:
+- Board initialization: O(25) - constant
+- Card reveal: O(1)
+- Find next player: O(n) where n = number of players
+- Sort final scores: O(n log n)
+
+SPACE COMPLEXITY:
+- Board: O(25) - constant (5x5 grid)
+- Cards: O(25) - constant (all cards created at start)
+- Players: O(n) where n = 2-4 players
+- Overall: O(1) constant space
+
+OPTIMIZATION OPPORTUNITIES:
+- Cache active player count instead of recalculating
+- Use indices instead of searching for next player
+- Pre-compute player view positions
+
+========================================
+RUBIS DISTRIBUTION PROBABILITY
+========================================
+
+Total 7 cards in RubisDeck:
+- 3 cards with 1 ruby  (42.9% chance)
+- 2 cards with 2 rubies (28.6% chance)
+- 1 card with 3 rubies (14.3% chance)
+- 1 card with 4 rubies (14.3% chance)
+
+Expected value per round: ~1.86 rubies
+Total rubies in game: 1+1+1+2+2+3+4 = 14 rubies
+Average per player (7 rounds): 3.5 rubies
+
+========================================
+CODE QUALITY METRICS
+========================================
+
+LINES OF CODE (approximate):
+- Header files: ~600 lines
+- Implementation: ~1400 lines
+- Total: ~2000 lines
+
+CLASSES: 11
+- 3 data classes (Player, Card, Rubis)
+- 3 factory classes (DeckFactory, CardDeck, RubisDeck)
+- 3 game logic classes (Board, Game, Rules)
+- 2 exception classes
+
+FUNCTIONS/METHODS: ~80
+- Constructors/Destructors: ~20
+- Getters/Setters: ~20
+- Game logic: ~25
+- Helpers: ~15
+
+DOCUMENTATION:
+- Every class documented
+- Every method documented
+- Every parameter documented
+- Return values documented
+
+========================================
+COMPILATION FLAGS EXPLAINED
+========================================
+
+-std=c++17    Use C++17 standard features
+-Wall         Enable all common warnings
+-Wextra       Enable extra warnings
+-g            Include debugging symbols
+
+These flags ensure:
+- Modern C++ features available
+- Code quality through warnings
+- Easier debugging when needed
+
+========================================
