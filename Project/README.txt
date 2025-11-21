@@ -51,6 +51,15 @@ Build Files:
 COMPILATION INSTRUCTIONS
 ========================================
 
+USING TERMINAL, type these two in order: 
+
+1. g++ -std=c++17 -o memoarrr.exe main.cpp Memoarrr.cpp Player.cpp Card.cpp Rubis.cpp CardDeck.cpp RubisDeck.cpp Board.cpp Game.cpp Rules.cpp
+2. ./memoarrr.exe
+
+========================================
+COMPILATION INSTRUCTIONS (If above has issues)
+========================================
+
 To compile the project:
     make
 
@@ -62,13 +71,3 @@ To clean build files:
 
 To rebuild from scratch:
     make rebuild
-
-========================================
-COMPILATION INSTRUCTIONS (IF ABOVE FAILS)
-========================================
-
-USING TERMINAL, type these two in order: 
-
-1. g++ -std=c++17 -o memoarrr.exe main.cpp Memoarrr.cpp Player.cpp Card.cpp Rubis.cpp CardDeck.cpp RubisDeck.cpp Board.cpp Game.cpp Rules.cpp
-2. ./memoarrr.exe
-
