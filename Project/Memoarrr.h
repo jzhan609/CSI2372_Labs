@@ -42,4 +42,4 @@ std::string numberToString(Number n);
 int numberToInt(Number n);
 int letterToInt(Letter l);
 
-#endif // MEMOARRR_H
+#endif //MEMOARRR_H

@@ -12,8 +12,8 @@
 template<typename C>
 class DeckFactory {
 protected:
-    std::vector<C*> deck;      // The deck of cards or rubis
-    size_t currentIndex;        // Current position in the deck
+    std::vector<C*> deck;      //The deck of cards or rubis
+    size_t currentIndex;        //Current position in the deck
     
     /**
      * Protected constructor
@@ -68,4 +68,4 @@ public:
     }
 };
 
-#endif // DECKFACTORY_H
+#endif //DECKFACTORY_H

@@ -62,4 +62,4 @@ public:
     Player* getWinningPlayer(const Game& game) const;
 };
 
-#endif // RULES_H
+#endif //RULES_H

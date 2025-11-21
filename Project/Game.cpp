@@ -42,7 +42,7 @@ Player& Game::getPlayer(Side side) {
             return *player;
         }
     }
-    // Should never reach here in valid game
+    //Should never reach here in valid game
     return *players[0];
 }
 
@@ -101,10 +101,10 @@ void Game::updateCards() {
  * Displays board and all players
  */
 std::ostream& operator<<(std::ostream& os, const Game& game) {
-    // Print the board
+    //Print the board
     os << *game.board << "\n";
     
-    // Print all players
+    //Print all players
     for (size_t i = 0; i < game.players.size(); i++) {
         os << *game.players[i];
         if (i < game.players.size() - 1) {

@@ -18,7 +18,7 @@ private:
      */
     RubisDeck();
     
-    // Prevent copying
+    //Prevent copying
     RubisDeck(const RubisDeck&) = delete;
     RubisDeck& operator=(const RubisDeck&) = delete;
 
@@ -35,4 +35,4 @@ public:
     ~RubisDeck() override = default;
 };
 
-#endif // RUBISDECK_H
+#endif //RUBISDECK_H

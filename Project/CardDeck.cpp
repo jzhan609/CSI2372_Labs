@@ -5,7 +5,7 @@
  * One card for each combination of 5 animals and 5 backgrounds
  */
 CardDeck::CardDeck() : DeckFactory<Card>() {
-    // Create all combinations of animals and backgrounds
+    //Create all combinations of animals and backgrounds
     FaceAnimal animals[] = {
         FaceAnimal::Crab,
         FaceAnimal::Penguin,
@@ -22,7 +22,7 @@ CardDeck::CardDeck() : DeckFactory<Card>() {
         FaceBackground::Yellow
     };
     
-    // Create 25 cards (5 animals × 5 backgrounds)
+    //Create 25 cards (5 animals × 5 backgrounds)
     for (int i = 0; i < 5; i++) {
         for (int j = 0; j < 5; j++) {
             deck.push_back(new Card(animals[i], backgrounds[j]));

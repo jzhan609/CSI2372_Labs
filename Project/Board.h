@@ -14,9 +14,9 @@
 class Board {
 private:
     static const int BOARD_SIZE = 5;
-    std::array<std::array<Card*, BOARD_SIZE>, BOARD_SIZE> cards;  // 5x5 grid of card pointers
-    std::array<std::array<bool, BOARD_SIZE>, BOARD_SIZE> faceUp;  // Track face-up state
-    bool expertDisplayMode;  // Display mode flag
+    std::array<std::array<Card*, BOARD_SIZE>, BOARD_SIZE> cards;  //5x5 grid of card pointers
+    std::array<std::array<bool, BOARD_SIZE>, BOARD_SIZE> faceUp;  //Track face-up state
+    bool expertDisplayMode;  //Display mode flag
     
     /**
      * Helper to validate board position
@@ -118,4 +118,4 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Board& board);
 };
 
-#endif // BOARD_H
+#endif //BOARD_H
