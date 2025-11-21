@@ -1,5 +1,5 @@
 ========================================
-     Memoarrr! Memory Card Game
+Memoarrr! Memory Card Game
 ========================================
 
 Student Name: Rahul Atre, Jacob Zhang
