@@ -11,11 +11,11 @@
  */
 class Player {
 private:
-    std::string name;           // Player's name
-    Side side;                  // Position on board (top, bottom, left, right)
-    bool active;                // Whether player is active in current round
-    int rubiesCount;            // Total rubies collected
-    bool endOfGameMode;         // Display mode flag
+    std::string name;           //Player's name
+    Side side;                  //Position on board (top, bottom, left, right)
+    bool active;                //Whether player is active in current round
+    int rubiesCount;            //Total rubies collected
+    bool endOfGameMode;         //Display mode flag
 
 public:
     /**
@@ -82,4 +82,4 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Player& player);
 };
 
-#endif // PLAYER_H
+#endif //PLAYER_H

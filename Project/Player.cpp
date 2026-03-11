@@ -76,7 +76,7 @@ std::ostream& operator<<(std::ostream& os, const Player& player) {
     if (player.endOfGameMode) {
         os << player.rubiesCount << " rubies";
     } else {
-        // Print side
+        //Print side
         switch (player.side) {
             case Side::Top: os << "top"; break;
             case Side::Bottom: os << "bottom"; break;

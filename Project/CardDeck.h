@@ -17,7 +17,7 @@ private:
      */
     CardDeck();
     
-    // Prevent copying
+    //Prevent copying
     CardDeck(const CardDeck&) = delete;
     CardDeck& operator=(const CardDeck&) = delete;
 
@@ -34,4 +34,4 @@ public:
     ~CardDeck() override = default;
 };
 
-#endif // CARDDECK_H
+#endif //CARDDECK_H

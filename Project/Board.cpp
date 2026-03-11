@@ -6,7 +6,7 @@
  * Creates a 5x5 board with center position (C3) empty
  */
 Board::Board(bool expertDisplay) : expertDisplayMode(expertDisplay) {
-    // Initialize all positions
+    //Initialize all positions
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
             cards[i][j] = nullptr;
@@ -14,14 +14,14 @@ Board::Board(bool expertDisplay) : expertDisplayMode(expertDisplay) {
         }
     }
     
-    // Get CardDeck instance
+    //Get CardDeck instance
     CardDeck& deck = CardDeck::make_CardDeck();
     deck.shuffle();
     
-    // Fill board with cards (except center position)
+    //Fill board with cards (except center position)
     for (int i = 0; i < BOARD_SIZE; i++) {
         for (int j = 0; j < BOARD_SIZE; j++) {
-            // Skip center position (row 2, col 2)
+            //Skip center position (row 2, col 2)
             if (i == 2 && j == 2) {
                 continue;
             }

@@ -29,14 +29,14 @@ bool parsePosition(const std::string& input, Letter& letter, Number& number) {
     char letterChar = std::toupper(input[0]);
     char numberChar = input[1];
     
-    // Parse letter
+    //Parse letter
     if (letterChar >= 'A' && letterChar <= 'E') {
         letter = static_cast<Letter>(letterChar - 'A');
     } else {
         return false;
     }
     
-    // Parse number
+    //Parse number
     if (numberChar >= '1' && numberChar <= '5') {
         number = static_cast<Number>(numberChar - '1');
     } else {
@@ -85,7 +85,7 @@ int main() {
     std::cout << "=== Welcome to Memoarrr! ===" << std::endl;
     std::cout << std::endl;
     
-    // Choose game version
+    //Choose game version
     std::cout << "Choose game version:" << std::endl;
     std::cout << "1. Base game" << std::endl;
     std::cout << "2. Expert display mode" << std::endl;
@@ -99,20 +99,20 @@ int main() {
     bool expertDisplay = (version == 2 || version == 4);
     bool expertRules = (version == 3 || version == 4);
     
-    // Number of players
+    //Number of players
     int numPlayers;
     do {
         std::cout << "Enter number of players (2-4): ";
         std::cin >> numPlayers;
     } while (numPlayers < 2 || numPlayers > 4);
     
-    std::cin.ignore(); // Clear newline
+    std::cin.ignore(); //Clear newline
     
-    // Create game
+    //Create game
     Game game(expertDisplay, expertRules);
     Rules rules(expertRules);
     
-    // Create players
+    //Create players
     Side sides[] = {Side::Top, Side::Right, Side::Bottom, Side::Left};
     for (int i = 0; i < numPlayers; i++) {
         std::string name;
@@ -125,19 +125,19 @@ int main() {
     
     std::cout << "\n=== Game Start ===" << std::endl;
     
-    // Main game loop
+    //Main game loop
     while (!rules.gameOver(game)) {
         std::cout << "\n=== Round " << (game.getRound() + 1) << " ===" << std::endl;
         
-        // Reset cards face down
+        //Reset cards face down
         game.getBoard()->allFacesDown();
         
-        // Reset all players to active
+        //Reset all players to active
         for (auto player : game.getPlayers()) {
             player->setActive(true);
         }
         
-        // Let each player peek at their 3 cards
+        //Let each player peek at their 3 cards
         for (auto player : game.getPlayers()) {
             std::cout << "\n" << player->getName() << ", press Enter to view your cards...";
             std::cin.get();
@@ -158,13 +158,13 @@ int main() {
             
             std::cout << "Press Enter to continue...";
             std::cin.get();
-            std::cout << "\n\n"; // Clear screen effect
+            std::cout << "\n\n"; //Clear screen effect
         }
         
-        // Round play loop
+        //Round play loop
         int currentPlayerIdx = 0;
         while (!rules.roundOver(game)) {
-            // Get next active player
+            //Get next active player
             Player* currentPlayer = nullptr;
             int attempts = 0;
             while (attempts < numPlayers) {
@@ -179,11 +179,11 @@ int main() {
             
             if (!currentPlayer) break;
             
-            // Display game state
+            //Display game state
             std::cout << "\n" << game << std::endl;
             std::cout << "\n" << currentPlayer->getName() << "'s turn" << std::endl;
             
-            // Get card selection
+            //Get card selection
             std::string input;
             Letter letter;
             Number number;
@@ -195,7 +195,7 @@ int main() {
                 
                 if (parsePosition(input, letter, number)) {
                     try {
-                        // Check if card already face up
+                        //Check if card already face up
                         if (game.getBoard()->isFaceUp(letter, number)) {
                             std::cout << "Card already revealed! Choose another." << std::endl;
                         } else {
@@ -209,19 +209,19 @@ int main() {
                 }
             }
             
-            // Reveal card
+            //Reveal card
             game.getBoard()->turnFaceUp(letter, number);
             Card* revealedCard = game.getCard(letter, number);
             game.setCurrentCard(revealedCard);
             
-            // Check if valid move
+            //Check if valid move
             if (!rules.isValid(game)) {
                 std::cout << "\nCard doesn't match! " << currentPlayer->getName() 
                           << " is out of this round." << std::endl;
                 currentPlayer->setActive(false);
             }
             
-            // Update for next turn
+            //Update for next turn
             game.updateCards();
             currentPlayerIdx = (currentPlayerIdx + 1) % numPlayers;
             
@@ -230,7 +230,7 @@ int main() {
             std::cin.get();
         }
         
-        // Round over - award rubies to winner
+        //Round over - award rubies to winner
         Player* winner = rules.getWinningPlayer(game);
         if (winner) {
             RubisDeck& rubisDeck = RubisDeck::make_RubisDeck();
@@ -253,11 +253,11 @@ int main() {
         std::cin.get();
     }
     
-    // Game over - display final scores
+    //Game over - display final scores
     std::cout << "\n\n=== Game Over ===" << std::endl;
     std::cout << "\nFinal Scores:" << std::endl;
     
-    // Sort players by rubies (least to most)
+    //Sort players by rubies (least to most)
     std::vector<Player*> sortedPlayers = game.getPlayers();
     std::sort(sortedPlayers.begin(), sortedPlayers.end(),
               [](Player* a, Player* b) { return a->getNRubies() < b->getNRubies(); });
@@ -267,7 +267,7 @@ int main() {
         std::cout << *player << std::endl;
     }
     
-    // Determine winner
+    //Determine winner
     Player* winner = sortedPlayers.back();
     std::cout << "\n*** " << winner->getName() << " wins with " 
               << winner->getNRubies() << " rubies! ***" << std::endl;

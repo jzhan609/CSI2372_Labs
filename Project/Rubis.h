@@ -3,7 +3,7 @@
 
 #include <iostream>
 
-// Forward declarations
+//Forward declarations
 template<typename C> class DeckFactory;
 class RubisDeck;
 
@@ -21,7 +21,7 @@ private:
      */
     Rubis(int val);
     
-    // Allow RubisDeck to create rubis
+    //Allow RubisDeck to create rubis
     friend class RubisDeck;
     friend class DeckFactory<Rubis>;
 
@@ -47,4 +47,4 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Rubis& rubis);
 };
 
-#endif // RUBIS_H
+#endif //RUBIS_H

@@ -15,12 +15,12 @@ bool Rules::isValid(const Game& game) const {
     const Card* previous = game.getPreviousCard();
     const Card* current = game.getCurrentCard();
     
-    // First card is always valid
+    //First card is always valid
     if (previous == nullptr || current == nullptr) {
         return true;
     }
     
-    // Check if animal or background matches
+    //Check if animal or background matches
     FaceAnimal prevAnimal = static_cast<FaceAnimal>(*previous);
     FaceBackground prevBg = static_cast<FaceBackground>(*previous);
     FaceAnimal currAnimal = static_cast<FaceAnimal>(*current);
@@ -55,23 +55,23 @@ const Player& Rules::getNextPlayer(const Game& game) const {
         throw std::runtime_error("No players in game");
     }
     
-    // Find current active player and get next one
-    // In a turn-based system, we cycle through players
+    //Find current active player and get next one
+    //In a turn-based system, we cycle through players
     for (size_t i = 0; i < players.size(); i++) {
         if (players[i]->isActive()) {
-            // Look for next active player
+            //Look for next active player
             for (size_t j = 1; j <= players.size(); j++) {
                 size_t nextIdx = (i + j) % players.size();
                 if (players[nextIdx]->isActive()) {
                     return *players[nextIdx];
                 }
             }
-            // If no other active player, return current
+            //If no other active player, return current
             return *players[i];
         }
     }
     
-    // If no active player found, return first player
+    //If no active player found, return first player
     return *players[0];
 }
 

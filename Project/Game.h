@@ -14,13 +14,13 @@
  */
 class Game {
 private:
-    Board* board;                  // The game board
-    std::vector<Player*> players;  // List of players
-    int currentRound;              // Current round number (0-6)
-    const Card* previousCard;      // Previously revealed card
-    const Card* currentCard;       // Currently revealed card
-    bool expertDisplayMode;        // Display mode flag
-    bool expertRulesMode;          // Rules mode flag
+    Board* board;                  //The game board
+    std::vector<Player*> players;  //List of players
+    int currentRound;              //Current round number (0-6)
+    const Card* previousCard;      //Previously revealed card
+    const Card* currentCard;       //Currently revealed card
+    bool expertDisplayMode;        //Display mode flag
+    bool expertRulesMode;          //Rules mode flag
     
 public:
     /**
@@ -125,4 +125,4 @@ public:
     friend std::ostream& operator<<(std::ostream& os, const Game& game);
 };
 
-#endif // GAME_H
+#endif //GAME_H

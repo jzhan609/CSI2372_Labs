@@ -4,7 +4,7 @@
 #include "Memoarrr.h"
 #include <string>
 
-// Forward declaration
+//Forward declaration
 template<typename C> class DeckFactory;
 class CardDeck;
 
@@ -14,8 +14,8 @@ class CardDeck;
  */
 class Card {
 private:
-    FaceAnimal animal;          // The animal on the card
-    FaceBackground background;   // The background color
+    FaceAnimal animal;          //The animal on the card
+    FaceBackground background;   //The background color
     
     /**
      * Private constructor - Cards can only be created by CardDeck
@@ -24,7 +24,7 @@ private:
      */
     Card(FaceAnimal a, FaceBackground bg);
     
-    // Allow CardDeck to create cards
+    //Allow CardDeck to create cards
     friend class CardDeck;
     friend class DeckFactory<Card>;
 
@@ -67,4 +67,4 @@ public:
     FaceBackground getBackground() const { return background; }
 };
 
-#endif // CARD_H
+#endif //CARD_H
